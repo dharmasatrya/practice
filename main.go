@@ -21,8 +21,8 @@ func printNumbers(ch1, ch2 chan int, wg *sync.WaitGroup) {
 var wg sync.WaitGroup
 
 func main() {
-	ch1 := make(chan int)
-	ch2 := make(chan int)
+	ch1 := make(chan int, 5) //buffered 5 jalan 5 consume
+	ch2 := make(chan int, 5) //buffered 5 jalan 5 consume
 
 	wg.Add(1)
 	go printNumbers(ch1, ch2, &wg)
@@ -50,6 +50,6 @@ func main() {
 		}
 	}()
 
-	wg.Wait() // Wait for both goroutines to finish
+	wg.Wait()
 	fmt.Println("Done!")
 }
